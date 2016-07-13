@@ -1,7 +1,18 @@
-Feature: Sapient demo API Smoke Test
+Feature: User Scheduling Appointment
   
-  Demo API Smoke Test Script
+  Schedule Appointment API Smoke Test Script
 
   Scenario: create a new appointment
-  Given create new apointment
+   Given create first appointment
+
+  Scenario: create second appointment
+    Given create second appointment
+
+    
+  Scenario: system not allow to create third appointment at same time 
+  Given create third appointment
   
+  
+  
+  Scenario: get office list
+  Given get office names

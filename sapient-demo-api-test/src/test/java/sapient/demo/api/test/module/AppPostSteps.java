@@ -7,35 +7,75 @@ import java.io.IOException;
 import net.thucydides.core.annotations.Step;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
+import org.junit.Test;
 
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.path.json.JsonPath;
-import com.jayway.restassured.response.Response;
+import com.jayway.restassured.config.SSLConfig;
 
 public class AppPostSteps {
 
     public AppPostSteps() {
-        RestAssured.baseURI = "";
-        RestAssured.port = 8380;
-        RestAssured.basePath = "";
+        RestAssured.baseURI = "https://54.208.105.112";
+        // RestAssured.port = 8380;
+        // RestAssured.basePath = "";
     }
 
     @Step
-    public void CreateNewUserAppointment() throws IOException {
+    @Test
+    public void CreateFirstAppointment() throws IOException {
         String jsonBody = IOUtils.toString(
                 this.getClass().getResourceAsStream("/createNewAppointment.json"));
-        final Response r = rest()
+        final String responseBody = rest()
                 .given()
+                .config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
                 .contentType("application/json; charset=UTF-8")
                 .body(jsonBody)
                 .when()
-                .post("")
-                .prettyPeek();
-        String responseBody = r.toString();
-        // String userId = get("/person").path("person.npi");
-        JsonPath jsonPath = new JsonPath(responseBody);
-        // String npiID = r.path("npi"); // jsonPath.getInt("npi"));
-        // return npiID;
+                .post("/appointments.json")
+                .prettyPrint();
+
+        JSONObject obj = new JSONObject(responseBody);
+        String userName = obj.getString("lastname");
+
+        assert (userName.contains("Applicant"));
+
     }
 
+    @Step
+    @Test
+    public void CreateSecondAppointment() throws IOException {
+        String jsonBody = IOUtils.toString(
+                this.getClass().getResourceAsStream("/createNewAppointment.json"));
+        String responseBody = rest()
+                .given()
+                .config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
+                .contentType("application/json; charset=UTF-8")
+                .body(jsonBody)
+                .when()
+                .post("/appointments.json")
+                .prettyPrint();
+
+        JSONObject obj = new JSONObject(responseBody);
+        String userName = obj.getString("lastname");
+
+        System.out.println("user name = " + userName);
+
+    }
+
+    @Step
+    @Test
+    public void CreatethirdAppointment() throws IOException {
+        String jsonBody = IOUtils.toString(
+                this.getClass().getResourceAsStream("/createNewAppointment.json"));
+        String responseBody = rest()
+                .given()
+                .config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
+                .contentType("application/json; charset=UTF-8")
+                .body(jsonBody)
+                .when()
+                .post("/appointments.json")
+                .prettyPrint();
+
+    }
 }
