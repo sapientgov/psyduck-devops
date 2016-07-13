@@ -16,3 +16,7 @@ Feature: User Scheduling Appointment
   
   Scenario: get office list
   Given get office names
+  
+  
+  Scenario: get all staff list
+  Given get staff list

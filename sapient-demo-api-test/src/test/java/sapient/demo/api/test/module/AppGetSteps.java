@@ -24,4 +24,14 @@ public class AppGetSteps {
                 .statusCode(200);
     }
 
+    @Step
+    public void getStaffList() {
+
+        rest()
+                .given().config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
+                .get("/staffs.json")
+                .then()
+                .assertThat()
+                .statusCode(200);
+    }
 }

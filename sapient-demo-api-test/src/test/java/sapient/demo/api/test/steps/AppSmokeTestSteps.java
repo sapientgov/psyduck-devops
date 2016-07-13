@@ -31,4 +31,10 @@ public class AppSmokeTestSteps {
         appointmentGet.getOfficesName();
 
     }
+
+    @Given("^get staff list$")
+    public void get_staff_list() throws Throwable {
+        appointmentGet.getStaffList();
+
+    }
 }
