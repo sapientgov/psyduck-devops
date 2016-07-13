@@ -13,6 +13,8 @@ Feature: User Scheduling Appointment
   Given create third appointment
   
   
+  Scenario: add new staff
+  Given create staff
   
   Scenario: get office list
   Given get office names

@@ -37,4 +37,9 @@ public class AppSmokeTestSteps {
         appointmentGet.getStaffList();
 
     }
+
+    @Given("^create staff$")
+    public void create_staff() throws Throwable {
+        appointmentPost.createStaff();
+    }
 }

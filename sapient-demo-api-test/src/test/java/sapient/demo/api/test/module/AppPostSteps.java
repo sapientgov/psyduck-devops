@@ -78,4 +78,20 @@ public class AppPostSteps {
                 .prettyPrint();
 
     }
+
+    @Step
+    @Test
+    public void createStaff() throws IOException {
+        String jsonBody = IOUtils.toString(
+                this.getClass().getResourceAsStream("/createStaff.json"));
+        String responseBody = rest()
+                .given()
+                .config(RestAssured.config().sslConfig(new SSLConfig().allowAllHostnames()))
+                .contentType("application/json; charset=UTF-8")
+                .body(jsonBody)
+                .when()
+                .post("/staffs.json")
+                .prettyPrint();
+
+    }
 }
